@@ -1,8 +1,16 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #ecf3f3;
+  color: #16161a;
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
+  /* color: #fde24f; */
+}
+.sidebar-nav {
+  margin-top: 20px;
+  padding: 0;
+  list-style: none;
 }
