@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <%- include('./partials/head.ejs') %>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <%- include('./partials/nav.ejs') %>
+        <div class="col-sm-10">
+            <h1><%- title %></h1>
+            <h3>ID: <%- bookinstance._id %></h3>
+            <p>Do you really want to delete this BookInstance?</p>
+            <form action="" method="post">
+              <div class="form-group">
+                <input type="hidden" id="bookinstanceid" name="bookinstanceid" class="form-control" required value=<%- bookinstance._id %> >
+                <button class="btn btn-primary" type="submit">Delete</button>
+              </div>
+            </form>           
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+ 

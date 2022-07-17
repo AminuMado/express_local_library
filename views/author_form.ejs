@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <%- include('./partials/head.ejs') %>
+  <% let prevFirstname = "" ; let prevFamilyName = ""; let prevDob = ""; let prevDod = "";
+  if (locals.author) { 
+    prevFirstname = author.first_name; 
+    prevFamilyName = author.family_name; 
+    prevDob = author.date_of_birth_for_form; 
+    prevDod = author.date_of_death_for_form;
+  }%>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <%- include('./partials/nav.ejs') %>
+        <div class="col-sm-10">
+          <h1><%= title %></h1>
+          <form action="" method="post">
+            <div class="form-group">
+              <label for="first_name"> First Name: </label>
+              <input id="first_name" class="form-control" type="text"
+              placeholder="First name (Christian)" name="first_name"
+              required="true" value=<%- prevFirstname %> >
+              <label for="family_name"> Family Name: </label>
+              <input id="family_name" class="form-control" type="text"
+              placeholder="Family name (Surname)" name="family_name"
+              required="true" value=<%- prevFamilyName %> >
+            </div>
+            <div class="form-group">
+              <label for="date_of_birth"> Date of birth: </label>
+              <input type="date" id="date_of_birth" class="form-control"
+              type="date" name="date_of_birth" value=<%- `"${prevDob}"` %> >
+              <label for="date_of_death"> Date of Death: </label>
+              <input type="date" id="date_of_death" class="form-control"
+              type="date" name="date_of_death" value=<%- `"${prevDod}"` %> >
+            </div>
+            <button class="btn btn-primary" type="submit">Submit</button>
+          </form>
+          <% if (locals.errors) { %>
+            <ul>
+              <% errors.forEach(error => { %>
+              <li><%- error.msg %></li>
+              <% }) %>
+            </ul>
+            <% } %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

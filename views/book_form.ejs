@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <%- include('./partials/head.ejs') %> 
+
+  <%  let sortedAuthors = authors.sort((a, b) => a.family_name.localeCompare(b.family_name));
+      let prevBookTitle = '';    
+      let prevBookSummary = '';
+      let prevBookISBN = '';
+      if(locals.book){ 
+       prevBookTitle = `"${book.title}"`;
+       prevBookSummary = book.summary;
+       prevBookISBN = book.isbn; 
+      }%>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <%- include('./partials/nav.ejs') %>
+        <div class="col-sm-10">
+          <h1><%= title %></h1>
+          <form action="" method="post">
+            <div class="form-group">
+              <label for="title">Title: </label>
+              <input
+                id="title"
+                class="form-control"
+                type="text"
+                placeholder="Name of book"
+                name="title"
+                required="true"
+                value= <%- prevBookTitle %>
+              >
+            </div>
+            <div class="form-group">
+              <label for="author">Author: </label>
+              <select
+                name="author"
+                id="author"
+                class="form-control"
+                placeholder="Select author"
+                required="true"
+              > 
+                <% sortedAuthors.forEach(author => { %>
+                <% if (locals.book && author._id.toString() === book.author._id.toString()) { %>
+                <option selected value=<%- author._id %>  ><%- author.name %></option>
+                <% } else { %>
+                <option value=<%- author._id %> ><%- author.name %></option>
+                <% } %> <% }) %>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="summary">Summary:</label>
+              <textarea
+                class="form-control"
+                name="summary"
+                id="summary"
+                placeholder="Summary"
+                required="true"
+                ><%- prevBookSummary %></textarea>
+            </div>
+            <div class="form-group">
+              <label for="isbn">ISBN:</label>
+              <input type="text" id="isbn" class="form-control"
+              placeholder="ISBN13" name="isbn" required="true" 
+              value=<%-prevBookISBN %> >
+            </div>
+            <div class="form-group">
+              <label for="">Genre</label>
+              <div>
+                <% genres.forEach(genre => { %>
+                  <input
+                    type="checkbox"
+                    class="checkbox-input"
+                    name="genre"
+                    value= <%- genre._id %>
+                    id= <%- genre._id %>
+                    <%- genre.checked ? "checked" : "" %>
+                  />
+                  <label for=<%- genre._id %> > <%- genre.name %> </label>
+                <% }) %>
+              </div>
+            </div>
+            <button class="btn btn-primary" type="submit">Submit</button>
+          </form>
+          <% if (locals.errors) { %>
+          <ul>
+            <% errors.forEach(error => { %>
+            <li><%- error.msg %></li>
+            <% }) %>
+          </ul>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
